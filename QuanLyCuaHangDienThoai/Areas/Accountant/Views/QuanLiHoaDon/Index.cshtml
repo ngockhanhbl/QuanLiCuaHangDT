@@ -1,0 +1,94 @@
+﻿@model QuanLyCuaHangDienThoai.Models.HOADON
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutHeThong.cshtml";
+}
+
+<div class="col-sm-12">
+	<div class="col-sm-9"><h2 class="head">Nhân Viên Kế Toán</h2></div>
+	<div class="col-sm-3">@RenderPage("~/Views/Shared/_Logout.cshtml")</div>
+</div>
+<div class="col-sm-3">@Html.ActionLink("Home Accountant", "Index", "Home", new { @area = "Accountant" }, new { @class = "btn btn-success btn-style" })</div>
+<div class="col-sm-12" style="height:50px;"></div>
+
+<div class="col-sm-12">
+	<div class="col-sm-3">@Html.Label("Tìm Theo Mã NV or Mã Hóa Đơn")</div>
+	<div class="col-sm-9">@Html.TextBoxFor(m => m.maHoaDon, new { @class = "form-control", @placeholder = "MÃ NV OR MÃ HÓA ĐƠN" })</div>
+</div>
+
+
+
+<div class="col-sm-12" style="height:50px;"></div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 clear">
+			<div class="panel-group">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h4>HÓA ĐƠN</h4>
+					</div>
+					<div class="panel-body">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th class="col-sm-1">Số Thứ Tự</th>
+									<th class="col-sm-2">Mã Hóa Đơn</th>
+									<th class="col-sm-3">Ngày Lập Hóa Đơn</th>
+									<th class="col-sm-3">Mã Người Lập HĐ</th>
+									<th class="col-sm-3">Thành Tiền </th>
+								</tr>
+							</thead>
+							<tbody id="HoaDonRow">
+								@if (ViewBag.listInfoHoaDon != null)
+								{
+									var i = 1;
+									decimal tong = 0;
+									foreach (var item in ViewBag.listInfoHoaDon)
+									{
+										<tr>
+											<td>@i</td>
+											<td>@item.MaHoaDon</td>
+											<td>@item.NgayLapHoaDon</td>
+											<td>@item.MaNVienLapHDon</td>
+											<td>@item.ThanhTien</td>
+										</tr>
+										i++;
+										tong = tong + decimal.Parse(item.ThanhTien.ToString());
+									}
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td>Tổng Tiền Hóa Đơn:</td>
+										<td>@string.Format("{0:n0}", tong)</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+
+	$(document).ready(function ()
+	{
+		$("#maHoaDon").keydown(function () {
+			var searchtext = $(this).val();
+			$.ajax({
+				type: "Post",
+				url: "/Accountant/QuanLiHoaDon/GetSearchRecord?SearchText=" + searchtext,
+				contenttype: "html",
+				success: function (response) {
+					$("#HoaDonRow").html(response);
+				}
+			})
+
+		})
+	})
+</script>

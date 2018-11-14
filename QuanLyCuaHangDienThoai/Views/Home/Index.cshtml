@@ -1,0 +1,25 @@
+﻿
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutHeThong.cshtml";
+}
+<div class="container" style="height:350px;">
+	<div class="row">
+		<div class="col-sm-12" style="margin-top:50px;">
+			<div class="col-sm-8">
+				<h3>Lời Giới Thiệu</h3>
+				<p>Tên Phần Mềm:<b>Quản Lí Bán Hàng</b></p>
+				<p>Người Sử Dụng:<b>Người Quản Lí(Chủ),Kế Toán, Thủ Kho</b></p>
+				<p>Username-Password-admin: <b>admin-admin</b></p>
+				<p>Username-Password-admin: <b>accountant-accountant</b></p>
+				<p>Username-Password-admin: <b>warehouse-warehouse</b></p>
+				<p><i>Admin sẽ là người đăng kí account của kế toán và nv kho.</i></p>
+				<p><i>Muốn Sử Dụng Phần Mềm Bắt Buộc Phải Đăng Nhập.</i></p>
+			</div>
+			<div class="col-sm-4">
+				<div class="col-sm-12 home-right"><img src="~/Content/images/images.png" /></div>
+				<div class="col-sm-12 home-right">@Html.ActionLink("Đăng Nhập", "Index", "Login", new { @area = "" }, new { @class = "btn btn-success" })</div>
+			</div>
+		</div>
+	</div>
+</div>

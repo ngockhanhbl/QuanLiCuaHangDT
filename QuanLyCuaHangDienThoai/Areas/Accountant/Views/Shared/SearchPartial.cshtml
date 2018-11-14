@@ -1,0 +1,31 @@
+﻿@model QuanLyCuaHangDienThoai.Areas.Accountant.Models.AccountantQuanLiHoaDon
+@{
+	ViewBag.Title = "SearchPartial";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag != null)
+{
+	var i = 1;
+	float tong = 0;
+	foreach (var item in ViewBag.listInfoHoaDon)
+	{
+		<tr>
+			<td>@i</td>
+			<td>@item.MaHoaDon</td>
+			<td>@item.NgayLapHoaDon</td>
+			<td>@item.MaNVienLapHDon</td>
+			<td>@item.ThanhTien</td>
+		</tr>
+		i++;
+		tong = tong + item.ThanhTien;
+	}
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>Tổng Tiền Hóa Đơn:</td>
+		<td>@tong</td>
+	</tr>
+}
+

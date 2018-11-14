@@ -1,0 +1,281 @@
+﻿@model QuanLyCuaHangDienThoai.Models.DAO.ModifierNhanVien
+
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutHeThong.cshtml";
+}
+
+<div class="col-sm-12">
+	<div class="col-sm-10"><h3 class="head">Quản Lí Nhân Viên</h3></div>
+	<div class="col-sm-2">@RenderPage("~/Views/Shared/_Logout.cshtml")</div>
+</div>
+
+<div class="col-sm-12">
+	<div class="col-sm-6"><div>@Html.ActionLink("Home Admin", "Index", "Home", new { @area = "Admin" }, new { @class = "btn btn-success btn-style" })</div></div>
+	<div class="col-sm-6">
+		<div class="col-sm-12">
+			<a class="btn btn-success btn-style" data-toggle="modal" data-target="#ThemMoiNV">Thêm Nhân Viên Mới</a>
+			<div class="modal fade" id="ThemMoiNV">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<a class="close" data-dismiss="modal">&times;</a>
+							<h4>Thêm Nhân Viên </h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-sm-12">
+									<form id="ThemNv">
+										<div class="form-group">
+											<div class="col-sm-4">@Html.Label("Tên NV:", new { @class = "label-style" })</div>
+											<div class="col-sm-8">
+												@Html.TextBoxFor(Model => Model.tenNhanVien, new { @class = "form-control" })
+												@Html.ValidationMessageFor(Model => Model.tenNhanVien, "", new { @class = "text-danger" })
+											</div>
+										</div>
+										<div class="col-sm-12" style="height:10px;"></div>
+										<div class="form-group">
+											<div class="col-sm-4">@Html.Label("Ngày Sinh:", new { @class = "label-style" })</div>
+											<div class="col-sm-8">
+												@Html.TextBoxFor(Model => Model.NgaySinh, new { @class = "form-control" })
+												@Html.ValidationMessageFor(Model => Model.NgaySinh, "", new { @class = "text-danger" })
+											</div>
+										</div>
+										<div class="col-sm-12" style="height:10px;"></div>
+										<div class="form-group">
+											<div class="col-sm-4">@Html.Label("Giới Tính:", new { @class = "label-style" })</div>
+											<div class="col-sm-8">
+												@Html.TextBoxFor(Model => Model.GioiTinh, new { @class = "form-control" })
+												@Html.ValidationMessageFor(Model => Model.GioiTinh, "", new { @class = "text-danger" })
+											</div>
+										</div>
+										<div class="col-sm-12" style="height:10px;"></div>
+										<div class="form-group">
+											<div class="col-sm-4">@Html.Label("CMND:", new { @class = "label-style" })</div>
+											<div class="col-sm-8">
+												@Html.TextBoxFor(Model => Model.Cmnd, new { @class = "form-control" })
+												@Html.ValidationMessageFor(Model => Model.Cmnd, "", new { @class = "text-danger" })
+											</div>
+										</div>
+										<div class="col-sm-12" style="height:10px;"></div>
+										<div class="form-group">
+											<div class="col-sm-4">@Html.Label("SĐT:", new { @class = "label-style" })</div>
+											<div class="col-sm-8">
+												@Html.TextBoxFor(Model => Model.SDT, new { @class = "form-control" })
+												@Html.ValidationMessageFor(Model => Model.SDT, "", new { @class = "text-danger" })
+											</div>
+										</div>
+
+										<div class="col-sm-12" style="height:10px;"></div>
+										<div class="form-group">
+											<div class="col-sm-4">@Html.Label("Địa Chỉ:", new { @class = "label-style" })</div>
+											<div class="col-sm-8">
+												@Html.TextBoxFor(Model => Model.DiaChi, new { @class = "form-control" })
+												@Html.ValidationMessageFor(Model => Model.DiaChi, "", new { @class = "text-danger" })
+											</div>
+										</div>
+										<div class="col-sm-12" style="height:10px;"></div>
+										<div class="form-group">
+											<div class="col-sm-4">@Html.Label("Chức Vụ:", new { @class = "label-style" })</div>
+											<div class="col-sm-8">
+												@Html.DropDownListFor(Model => Model.ViTri, new List<SelectListItem> { new SelectListItem { Text = "Admin", Value = "Admin" }, new SelectListItem { Text = "Accountant", Value = "Accountant" }, new SelectListItem { Text = "Warehouse", Value = "Warehouse" } }, new { @class = "form-control" })
+												@Html.ValidationMessageFor(Model => Model.ViTri, "", new { @class = "text-danger" })
+											</div>
+										</div>
+										<div class="col-sm-12" style="height:10px;"></div>
+										<div class="form-group">
+											<div class="col-sm-4">@Html.Label("Username:", new { @class = "label-style" })</div>
+											<div class="col-sm-8">
+												@Html.TextBoxFor(Model => Model.TenDangNhap, new { @class = "form-control" })
+												@Html.ValidationMessageFor(Model => Model.TenDangNhap, "", new { @class = "text-danger" })
+											</div>
+										</div>
+										<div class="col-sm-12" style="height:10px;"></div>
+										<div class="form-group">
+											<div class="col-sm-4">@Html.Label("Password:", new { @class = "label-style" })</div>
+											<div class="col-sm-8">
+												@Html.TextBoxFor(Model => Model.MatKhau, new { @class = "form-control" })
+												@Html.ValidationMessageFor(Model => Model.MatKhau, "", new { @class = "text-danger" })
+											</div>
+										</div>
+									</form>
+									<div class="col-sm-12" style="height:15px;"></div>
+								</div>
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<a class="btn btn-default" onclick="cancelAction()">Cancel</a>
+							<a class="btn btn-success" onclick="submitThemNV()">Submit</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-sm-12" style="height:50px"></div>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 clear">
+			<div class="panel-group">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h4>INFORMATION STAFF</h4>
+					</div>
+					<div class="panel-body">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th class="col-sm-1">Số Thứ Tự</th>
+									<th class="col-sm-1">MaNV</th>
+									<th class="col-sm-2">Tên Nhân Viên</th>
+									<th class="col-sm-1">Ngày Sinh</th>
+									<th class="col-sm-1">Giới Tính</th>
+									<th class="col-sm-1">CMND</th>
+									<th class="col-sm-1">Số ĐT</th>
+									<th class="col-sm-1">Tên ĐNhập</th>
+									<th class="col-sm-1">Địa Chỉ</th>
+									<th class="col-sm-1">Chức Vụ</th>
+
+								</tr>
+							</thead>
+							<tbody id="HoaDonRow">
+								@if (ViewBag.listInfoNhanVien != null)
+								{
+									var i = 1;
+
+									foreach (var item in ViewBag.listInfoNhanVien)
+									{
+										<tr id="row_@item.maNhanVien">
+
+											<td>@i</td>
+											<td>@item.maNhanVien</td>
+											<td>@item.tenNhanVien</td>
+											<td>@item.ngaySinh</td>
+											<td>@item.gioiTinh</td>
+											<td>@item.cmnd</td>
+											<td>@item.soDienThoai</td>
+											<td>@item.tenDangNhap</td>
+											<td>@item.diaChi</td>
+											<td>@item.chucVu</td>
+											<td><a class="btn btn-danger" onclick="ConfirmDelete(@item.maNhanVien)"><i class="glyphicon glyphicon-trash"> </i></a></td>
+										</tr>
+										i++;
+
+									}
+
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<input type="hidden" id="hiddenmaNhanVien" />
+
+
+
+
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">&times;</a>
+				<h4 class="modal-title">Xóa Nhân Viên </h4>
+			</div>
+			<div class="modal-body">
+				<h4>Bạn Muốn Xóa Nhân Viên Này ! Bạn Chắn Chắn chứ ?</h4>
+				<div style=" text-align:center;display:none" id="loaderDiv">
+					<img src="~/Content/image/InternetSlowdown_Day.gif" />
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a class="btn btn-default" data-dismiss="modal">Cancel</a>
+				<a class="btn btn-success" onclick="DeleteNhanVien()">Confirm</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="col-sm-12" style="height:50px"></div>
+
+
+
+<script>
+	var cancelAction = function () {
+		$("#NhanVien_cmnd").val("");
+		$("#NhanVien_tenNhanVien").val("");
+		$("#NhanVien_ngaySinh").val("");
+		$("#NhanVien_gioiTinh").val("");
+		$("#NhanVien_soDienThoai").val("");
+		$("#NhanVien_diaChi").val("");
+		$("#QLyNhanVien_chucVu").val("");
+		$("#Account_username").val("");
+		$("#Account_password").val("");
+		$("#ThemMoiNV").modal("hide");
+	}
+
+	var submitThemNV = function () {
+		var data = $("#ThemNv").serialize();
+		if (!$("#ThemNv").valid()) {
+			return false;
+		}
+		$.ajax({
+			type: "Post",
+			url: "/Admin/QLyNhanVien/JThemNVMoi",
+			data: data,
+			success: function (check) {
+				if (check == "false") {
+					alert("false");
+				}
+				else {
+					$("#NhanVien_cmnd").val("");
+					$("#NhanVien_tenNhanVien").val("");
+					$("#NhanVien_ngaySinh").val("");
+					$("#NhanVien_gioiTinh").val("");
+					$("#NhanVien_soDienThoai").val("");
+					$("#NhanVien_diaChi").val("");
+					$("#QLyNhanVien_chucVu").val("");
+					$("#Account_username").val("");
+					$("#Account_password").val("");
+					$("#ThemMoiNV").modal("hide");
+					alert(check);
+				}
+
+
+			}
+		})
+	}
+
+
+
+	var ConfirmDelete = function (maNhanVien) {
+		$("#hiddenmaNhanVien").val(maNhanVien);
+		$("#myModal").modal('show');
+	}
+
+	var DeleteNhanVien = function () {
+		$("#loderDiv").show();
+		var empID = $("#hiddenmaNhanVien").val();
+
+		$.ajax({
+			type: "Post",
+			url: "/Admin/QLyNhanVien/DeleteNhanVien",
+			data: { maNhanVien: empID },
+			success: function () {
+				window.location.reload(true);
+			}
+		})
+	}
+
+
+
+
+</script>

@@ -1,0 +1,91 @@
+﻿
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutHeThong.cshtml";
+}
+<div class="col-sm-12" style="height:50px;"></div>
+<div class="col-sm-6"><div>@Html.ActionLink("Home Admin", "Index", "Home", new { @area = "Admin" }, new { @class = "btn btn-success btn-style" })</div></div>
+<div class="col-sm-12" style="height:50px;"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 clear">
+			<div class="panel-group">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h4>ĐỀ XUẤT NHẬP KHO HÀNG</h4>
+					</div>
+					<div class="panel-body">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th class="col-sm-2">STT</th>
+									<th class="col-sm-4">Tên SP</th>
+									<th class="col-sm-3">Mã Sản Phẩm</th>
+									<th class="col-sm-3">Số Lượng </th>
+								</tr>
+							</thead>
+							<tbody id="RowSanPham">
+								@if (ViewBag.listNhapKho != null)
+								{
+									var i = 1;
+									foreach (var item in ViewBag.listNhapKho)
+									{
+										<tr id="RowSanPham">
+											<td>@i</td>
+											<td>@item.tenSanPham</td>
+											<td>@item.maSanPham</td>
+											<td>@item.soLuong</td>
+											<td><a class="btn btn-success" onclick="submitDone(@item.id,@item.maSanPham)"><i class="glyphicon glyphicon-ok"></i></a></td>
+											<td><a class="btn btn-danger" onclick="submitCancel(@item.id)"><i class="glyphicon glyphicon-remove"></i></a></td>
+										</tr>
+										i++;
+									}
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	var submitDone = function (NhapKhoID,SPID) {
+		$.ajax({
+			type: "Post",
+			url: "/Admin/DeXuatNhapKho/updateTonKho",
+			data: { NKID: NhapKhoID, maSP: SPID },
+			success: function (check) {
+				if (check == "true") {
+					window.location.reload(true);
+
+				}
+				else {
+					alert("False");
+				}
+
+
+			}
+		})
+	}
+
+	var submitCancel = function (NhapKhoID) {
+		$.ajax({
+			type: "Post",
+			url: "/Admin/DeXuatNhapKho/HuyDeXuatNhapKho",
+			data: { NKID: NhapKhoID },
+			success: function (check) {
+				if (check == "true") {
+					window.location.reload(true);
+
+				}
+				else {
+					alert("False");
+				}
+			}
+		})
+	}
+
+
+</script>

@@ -1,0 +1,68 @@
+﻿@model QuanLyCuaHangDienThoai.Models.DAO.Login
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutHeThong.cshtml";
+}
+<div class="container" style="height:400px;">
+	<div class="row ">
+		<div class="col-sm-6" style="margin-left:260px; margin-top:100px;">
+			<div class="panel-group">
+				<div class="panel panel-primary">
+					<div class="panel-heading"><h4 style="text-align:center;">Login</h4></div>
+					<div class="panel-body">
+						<form id="idLogin">
+							<div class=" col-sm-12">
+								<div class="col-sm-5">@Html.Label("Username:", new { @class = "label-style" })</div>
+								<div class="col-sm-7">
+									<div class="col-sm-12">@Html.TextBoxFor(Model => Model.username)</div>
+									<div class="col-sm-12">@Html.ValidationMessageFor(Model => Model.username, "", new { @class = "text-danger" })</div>
+
+								</div>
+							</div>
+							<div class="col-sm-12" style="height:10px;"></div>
+							<div class=" col-sm-12">
+								<div class="col-sm-5">@Html.Label("Password:", new { @class = "label-style" })</div>
+								<div class="col-sm-7">
+									<div class="col-sm-12">@Html.PasswordFor(Model => Model.password)</div>
+									<div class="col-sm-12">@Html.ValidationMessageFor(Model => Model.password, "", new { @class = "text-danger" })</div>
+								</div>
+							</div>
+							<div class="col-sm-12" style="height:10px;"></div>
+						</form>
+						<div class=" col-sm-12">
+							<div class="col-sm-12" style="text-align:center;"><a class="btn btn-success" onclick="xuly()" style="text-align:center;">Login</a></div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	var xuly = function () {
+		var data = $("#idLogin").serialize();
+		if (!$("#idLogin").valid()) {
+
+			return false;
+		}
+		$.ajax({
+			type: "Post",
+			url: "/Login/KiemTraDangNhap",
+			data: data,
+			success: function (quyen) {
+				if (quyen == "Admin" ) {
+					window.location.href = "/Admin";
+				} else if (quyen == "Accountant") {
+					window.location.href = "/Accountant";
+				} else if (quyen = "Warehouse") {
+					window.location.href = "/WarehouseStaff";
+				} else
+					alert(quyen);
+				//
+			}
+		})
+	}
+</script>
+

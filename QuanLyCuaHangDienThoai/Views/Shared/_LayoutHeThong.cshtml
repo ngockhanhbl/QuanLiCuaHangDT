@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title - My ASP.NET Application</title>
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+	<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+</head>
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				@Html.ActionLink("Quản Lí Bán Hàng", "Logout", "Login", new { area = "" }, new { @class = "navbar-brand" })
+			</div>
+		</div>
+	</div>
+	<div class="container body-content">
+		@RenderBody()
+		<hr />
+
+		<footer>
+			<div class="container ">
+				<div class="row ">
+					<div class="col-sm-12 footer-style">
+						<div class="col-sm-5" style="text-align:left;margin-top:100px;">
+							<p class="footer-inf">Email:phanmenbanhang2018@gmail.com</p>
+							<p class="footer-inf">Facebook:facebook/phanmenbanhang2018</p>
+							<p class="footer-inf">
+								Hổ Trợ Thanh Toán: <img src="~/Content/images/cards.png" />
+							</p>
+						</div>
+						<div class="col-sm-2"></div>
+						<div class="col-sm-5" style="text-align:right;margin-top:100px;">
+							<p class="footer-inf">SĐT: 0965106971 ------------ 0918268016</p>
+							<p class="footer-inf">Địa Chỉ:79/4A Lý Thường Kiệt P8 TPHCM</p>
+							<p class="footer-inf">COPPYRIGHT: &copy; KLTH-Team Cooperation</p>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	<script src="~/Scripts/jquery.validate.js"></script>
+	<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+	@RenderSection("scripts", required: false)
+</body>
+</html>

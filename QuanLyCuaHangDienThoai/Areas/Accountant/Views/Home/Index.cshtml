@@ -1,0 +1,29 @@
+﻿
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutHeThong.cshtml";
+}
+
+<div class="col-sm-12">
+	<div class="col-sm-9"><h2 class="head">Nhân Viên Kế Toán</h2></div>
+	<div class="col-sm-3">@RenderPage("~/Views/Shared/_Logout.cshtml")</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="col-sm-6">
+				<div>@Html.ActionLink("In Hóa Đơn", "Index", "InHoaDon", new { @area = "Accountant" }, new { @class = "btn btn-success btn-style" })</div>
+			</div>
+			<div class="col-sm-6">
+				<div>@Html.ActionLink("Quản Lí Hóa Đơn", "Index", "QuanLiHoaDon", new { @area = "Accountant" }, new { @class = "btn btn-success btn-style" })</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col-sm-12" style="height:50px;"></div>
+<div style="margin-left:20px;"><img src="~/Content/images/bills.jpg" class="img-responsive" /></div>
+<div class="col-sm-12" style=" height:50px;"></div>
+
+

@@ -1,0 +1,209 @@
+﻿@model QuanLyCuaHangDienThoai.Areas.WarehouseStaff.Models.WarehouseNhapXuat
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutHeThong.cshtml";
+}
+<div class="col-sm-12">
+	<div class="col-sm-9"><h2 class="head">Nhân Viên Kho</h2></div>
+	<div class="col-sm-3">@RenderPage("~/Views/Shared/_Logout.cshtml")</div>
+</div>
+
+
+<div class="col-sm-12" style="height:20px"></div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="col-sm-6">
+				<div class="col-sm-12 clear">
+					<div class="col-sm-12 clear">
+						<a class="btn btn-primary btn-style" data-toggle="modal" data-target="#nhapkhoModal">NHẬP KHO</a>
+						<div class="modal fade" id="nhapkhoModal">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<a class="close" data-dismiss="modal">&times;</a>
+										<h4>Nhập Kho</h4>
+									</div>
+									<div class="modal-body">
+
+										<div class="row">
+											<div class="col-sm-12">
+												<form id="NhapHang">
+													<div class="form-group">
+														<div class="col-sm-4">@Html.Label("Tên Hàng:", new { @class = "label-style" })</div>
+														<div class="col-sm-8">@Html.DropDownListFor(Model => Model.Nhap.maHang, ViewBag.listSanPham as SelectList, new { @class = "form-control" })</div>
+													</div>
+													<div class="col-sm-12" style="height:10px;"></div>
+													<div class="form-group">
+														<div class="col-sm-4">@Html.Label("Số Lượng:", new { @class = "label-style" })</div>
+														<div class="col-sm-8">@Html.TextBoxFor(Model => Model.Nhap.soLuong, new { @class = "form-control", @placeholder = "100 " })</div>
+													</div>
+												</form>
+												<div class="col-sm-12" style="height:15px;"></div>
+											</div>
+										</div>
+									</div>
+
+									<div class="modal-footer">
+										<a class="btn btn-default" onclick="cancelActionNhap()">Cancel</a>
+										<a class="btn btn-success" onclick="submitNhapHang()">Submit</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-6">
+				<div class="col-sm-12 clear">
+					<div class="col-sm-12 clear">
+						<a class="btn btn-primary btn-style" data-toggle="modal" data-target="#xuatkhoModal">XUẤT KHO</a>
+						<div class="modal fade" id="xuatkhoModal">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<a class="close" data-dismiss="modal">&times;</a>
+										<h4>XUẤT KHO</h4>
+									</div>
+									<div class="modal-body">
+
+										<div class="row">
+											<div class="col-sm-12">
+												<form id="XuatHang">
+													<div class="form-group">
+														<div class="col-sm-4">@Html.Label("Tên Hàng:", new { @class = "label-style" })</div>
+														<div class="col-sm-8">@Html.DropDownListFor(Modal => Model.Xuat.maHang, ViewBag.listSanPham as SelectList, new { @class = "form-control" })</div>
+													</div>
+													<div class="col-sm-12" style="height:10px;"></div>
+													<div class="form-group">
+														<div class="col-sm-4">@Html.Label("Số Lượng:", new { @class = "label-style" })</div>
+														<div class="col-sm-8">@Html.TextBoxFor(Model => Model.Xuat.soLuong, new { @class = "form-control", @placeholder = "100 " })</div>
+													</div>
+												</form>
+												<div class="col-sm-12" style="height:15px;"></div>
+											</div>
+										</div>
+									</div>
+
+									<div class="modal-footer">
+										<a class="btn btn-default" onclick="cancelActionXuat()">Cancel</a>
+										<a class="btn btn-success" onclick="submitXuatHang()">Submit</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12" style="height:50px;"></div>
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 clear">
+				<div class="panel-group">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h4>KHO HÀNG</h4>
+						</div>
+						<div class="panel-body">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th class="col-sm-3">ID</th>
+										<th class="col-sm-5">Tên SP</th>
+										<th class="col-sm-4">Số Lượng</th>
+									</tr>
+								</thead>
+								<tbody>
+									@if (ViewBag.listInfoTonKho != null)
+									{
+										foreach (var item in ViewBag.listInfoTonKho)
+										{
+											<tr>
+												<td>@item.maHang</td>
+												<td>@item.TenSP</td>
+												<td>@item.soLuong</td>
+											</tr>
+										}
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	var cancelActionNhap = function () {
+		$("#tenHang").val("");
+		$("#maHang").val("");
+		$("#soLuong").val("");
+		$("#nhapkhoModal").modal("hide");
+	}
+	var cancelActionXuat = function () {
+		$("#tenHang").val("");
+		$("#maHang").val("");
+		$("#soLuong").val("");
+		$("#xuatkhoModal").modal("hide");
+	}
+
+
+	var submitNhapHang = function () {
+		var data = $("#NhapHang").serialize();
+		if (!$("#NhapHang").valid()) {
+			return false;
+		}
+		$.ajax({
+			type: "Post",
+			url: "/WarehouseStaff/Home/NhapKho",
+			data: data,
+			success: function (check) {
+				if (check == "true") {
+					$("#nhapkhoModal").modal("hide");
+					$("#Nhap_soLuong").val("");
+					alert("Success");
+					window.location.reload();
+
+				}
+				else
+					alert("failed");
+
+			}
+		})
+	}
+
+	var submitXuatHang = function () {
+		var data = $("#XuatHang").serialize();
+		if (!$("#XuatHang").valid()) {
+			return false;
+		}
+		$.ajax({
+			type: "POST",
+			url: "/WarehouseStaff/Home/XuatKho",
+			data: data,
+			success: function (check) {
+				if (check == "true") {
+					$("#xuatkhoModal").modal("hide");
+					$("#Xuat_soLuong").val("");
+					alert("Success");
+					window.location.reload();
+				}
+				else
+					alert("Failed");
+			}
+		})
+	}
+
+
+
+
+
+</script>

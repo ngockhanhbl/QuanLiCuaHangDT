@@ -1,0 +1,290 @@
+﻿@model QuanLyCuaHangDienThoai.Areas.Accountant.Models.AccountantInHoaDon
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutHeThong.cshtml";
+}
+<div class="col-sm-12">
+	<div class="col-sm-9"><h2 class="head">Nhân Viên Kế Toán</h2></div>
+	<div class="col-sm-3">@RenderPage("~/Views/Shared/_Logout.cshtml")</div>
+</div>
+
+
+<div class="col-sm-3">
+	<div class="col-sm-12">
+		<div>@Html.ActionLink("Home Accountant", "Index", "Home", new { @area = "Accountant" }, new { @class = "btn btn-success btn-style" })</div>
+	</div>
+</div>
+
+
+
+<div class="col-sm-12" style="height:50px;"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<form id="formInHoaDon">
+				<div class="col-sm-12">
+					<div class="col-sm-6">
+						<div class="col-sm-12">
+							<div class="col-sm-4 text-left">@Html.Label("Địa Chỉ  :", new { @class = "label-style" })</div>
+							<div class="col-sm-8">@Html.TextBoxFor(Model => Model.KhachHang.diaChi)</div>
+
+							<div class="col-sm-12" style="height:10px;"></div>
+
+							<div class="col-sm-4 text-left">@Html.Label("Tên Khách Hàng:", new { @class = "label-style" })</div>
+							<div class="col-sm-8">@Html.TextBoxFor(Model => Model.KhachHang.tenKhachHang)</div>
+
+							<div class="col-sm-12" style="height:10px;"></div>
+
+							<div class="col-sm-4 text-left">@Html.Label("Số Điện Thoại:", new { @class = "label-style" })</div>
+							<div class="col-sm-8">@Html.TextBoxFor(Model => Model.KhachHang.SDT)</div>
+
+							<div class="col-sm-12" style="height:10px;"></div>
+
+							<div class="col-sm-4 text-left">@Html.Label("Mã Nhân Viên:", new { @class = "label-style" })</div>
+							<div class="col-sm-8">@Html.TextBoxFor(Model => Model.HoaDon.maNhanVien)</div>
+
+							<div class="col-sm-12" style="height:10px;"></div>
+
+							<div class="col-sm-4 text-left">@Html.Label("Ngày Lập HĐ:", new { @class = "label-style" })</div>
+							<div class="col-sm-8">@Html.TextBoxFor(Model => Model.HoaDon.ngayLapHoaDon)</div>
+
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="col-sm-12">
+							<div class="col-sm-12">
+								<div class="col-sm-5"> @Html.Label("Tên Cửa Hàng:", new { @class = "label-style" })</div>
+								<div class="col-sm-7">@Html.Label("ESC STORE", new { @class = "label-style-floatleft" })</div>
+							</div>
+
+							<div class="col-sm-12" style="height:10px;"></div>
+
+							<div class="col-sm-12">
+								<div class="col-sm-5">@Html.Label("Địa Chỉ: ", new { @class = "label-style" })</div>
+								<div class="col-sm-7">@Html.Label("79/4A Lý Thường Kiệt,p8, Tân Bình", new { @class = "label-style-floatleft" })</div>
+
+							</div>
+
+							<div class="col-sm-12" style="height:10px;"></div>
+
+							<div class="col-sm-12">
+								<div class="col-sm-5">@Html.Label("Số Điện Thoại: ", new { @class = "label-style" })</div>
+								<div class="col-sm-7">@Html.Label(" 0965106971-01656378189", new { @class = "label-style-floatleft" })</div>
+
+							</div>
+
+							<div class="col-sm-12" style="height:10px;"></div>
+
+							<div class="col-sm-12">
+								<div class="col-sm-5">@Html.Label("Ngày Xuất HĐ: ", new { @class = "label-style" })</div>
+								<div class="col-sm-7">@Html.Label(DateTime.Now.Date.ToString("dd/MM/yyyy"), new { @class = "label-style-floatleft" })</div>
+							</div>
+							<div class="col-sm-12" style="height:10px;"></div>
+							<div class="col-sm-12">
+								<div class="col-sm-5">@Html.Label("Mã Hóa Đơn: ", new { @class = "label-style" })</div>
+								<div class="col-sm-7">@Html.Label((string)ViewBag.NextMaHoaDon, new { @class = "label-style-floatleft" })</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12">
+					<div class="panel-group">
+						<div class="panel panel-primary">
+							<div class="panel-body">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th class="col-sm-1">Số Thứ Tự</th>
+											<th class="col-sm-4">Tên Sản Phẩm</th>
+											<th class="col-sm-2">Số Lượng</th>
+											<th class="col-sm-3">Đơn Giá</th>
+											<th class="col-sm-2">Thành Tiền </th>
+										</tr>
+									</thead>
+									<tbody id="HoaDonRow">
+										@for (int i = 1; i <= 10; i++)
+										{
+											<tr>
+												<td>@i</td>
+												@*<td>@Html.DropDownListFor(Modal => Modal.Sanpham.maSanPham, ViewBag.listSanPham as SelectList, "---Select---", new { @class = "form-control" })</td>*@
+												<td>@Html.DropDownListFor(Modal => Modal.Sanpham.maSanPham, ViewBag.listSanPham as SelectList, null, new { id = i, @class = "form-control" })</td>
+												<td>@Html.TextBoxFor(Modal => Modal.TonKho.soLuong, "SL", new { @class = "form-control" })</td>
+												<td>@Html.TextBoxFor(Modal => Modal.ChiTietSanPham.donGiaXuat, "GB", new { @class = "form-control" })</td>
+												<td>@Html.TextBoxFor(Modal => Modal.HoaDon.thanhTien, "TT", new { @class = "form-control", @readonly = "readonly" })</td>
+											</tr>
+										}
+
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td class="text-bold-center">Thành Tiền</td>
+											<td>0</td>
+										</tr>
+									</tbody>
+
+
+
+								</table>
+								<div class="col-sm-12">
+									<div class="col-sm-3">@Html.Label("Người Lập Phiếu", new { @class = " label-style" })</div>
+									<div class="col-sm-3">@Html.Label("Người Giao Hàng", new { @class = "label-style " })</div>
+									<div class="col-sm-3">@Html.Label("Thủ Kho", new { @class = " label-style " })</div>
+									<div class="col-sm-3">@Html.Label("Người Nhận Hàng", new { @class = "label-style " })</div>
+								</div>
+							</div>
+
+							<div class="panel panel-body">
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+			</form>
+		</div>
+
+
+
+	</div>
+</div>
+
+
+
+
+
+<script>
+$(document).ready(function () {
+		$("#Sanpham_maSanPham").on("change", function () {
+		var data = $("#Sanpham_maSanPham").serialize();
+			$.ajax({
+				type: "Post",
+				url: "/Accountant/InHoaDon/JGetGiaSP",
+				data: data,
+				success: function (check) {
+					if (check == "false") {
+						alert("false");
+					}
+					else {
+					var chuoi = check;
+					var gia = chuoi.parseInt(splited[0]);
+					var maSp = chuoi.toString().splited[1];
+					$("#SL-1").val(check);
+				}
+				}
+			})
+		});
+});
+
+
+
+	//var cancelAction = function () {
+	//	$("#KhachHang_tenKhachHang").val("");
+	//	$("#KhachHang_SDT").val("");
+	//	$("#KhachHang_diaChi").val("");
+	//	$("#Sanpham_tenSanPham").val("");
+	//	$("#HoaDon_soLuong").val("");
+	//	$("#ChiTietSanPham_donGiaXuat").val("");
+	//	$("#NhanVien.maNhanVien").val("");
+	//	$("#InHoaDon").modal("hide");
+	//}
+
+	//var submitThemHDon = function () {
+	//	var data = $("#ThemHDon").serialize();
+	//	if (!$("#ThemHDon").valid()) {
+	//		return false;
+	//	}
+	//	$.ajax({
+	//		type: "Post",
+	//		url: "/Admin/InHoaDon/JThemHDon",
+	//		data: data,
+	//		success: function (check) {
+	//			if (check == "true") {
+	//				$("#KhachHang_tenKhachHang").val("");
+	//				$("#KhachHang_SDT").val("");
+	//				$("#KhachHang_diaChi").val("");
+	//				$("#Sanpham_tenSanPham").val("");
+	//				$("#HoaDon_soLuong").val("");
+	//				$("#ChiTietSanPham_donGiaXuat").val("");
+	//				$("#NhanVien_maNhanVien").val("");
+	//				$("#InHoaDon").modal("hide");
+	//				alert("Success");
+
+	//			}
+	//			else
+	//				alert("failed");
+
+	//		}
+	//	})
+	//}
+
+	@*window.onload = function () {
+		let filter = document.getElementById('Sanpham_tenSanPham');
+		filter.onchange = function () {
+			alert($('option:selected', this).text());
+		var x = document.getElementById("Sanpham_tenSanPham").value;
+			var GiaXuat;
+
+		if(@ViewBag.listChiTietSanPham != null)
+		{
+
+			foreach(var item in @ViewBag.listChiTietSanPham)
+			{
+				if(item.tenSanPham == x)
+				{
+					GiaXuat = item.DongiaXuat;
+				}
+			}
+		}
+		alert("Thanh Cong");
+
+		document.getElementById("IDdonGia").value = GiaXuat;
+		}
+	}*@
+
+
+
+	@*$(function () {
+		$("#Sanpham_tenSanPham").change(function () {
+			var x = document.getElementById("Sanpham_tenSanPham").value;
+			alert($('option:selected', this).text());
+		if(ViewBag.listChiTietSanPham != null){
+				@foreach (var item in ViewBag.listChiTietSanPham){
+
+					if (item.tenSanPham == x){
+						var K = item.DongiaXuat;
+				}
+			}
+	}
+			document.getElementById("IDdonGia").innerHTML = K;
+
+		})
+	});*@
+
+
+	@*function TenSPFunction() {
+		var x = document.getElementById("Sanpham_tenSanPham").value;
+		var GiaXuat;
+		if(@ViewBag.listChiTietSanPham != null)
+		{
+
+			foreach(var item in @ViewBag.listChiTietSanPham)
+			{
+				if(item.tenSanPham == x)
+				{
+					GiaXuat = item.DongiaXuat
+				}
+			}
+		}
+		alert("Thanh Cong");
+
+		document.getElementById("IDdonGia").value = GiaXuat;
+	}*@
+
+
+</script>

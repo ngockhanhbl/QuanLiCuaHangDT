@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title - My ASP.NET Application</title>
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top ">
+		<div class="container col-sm-12">
+			<div class="navbar-header col-sm-9">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				@Html.ActionLink("Thế Giới Điện Thoại", "Index", "HomeUser", new { area = "" }, new { @class = "navbar-brand"})
+			</div>
+			<div class="navbar-collapse collapse col-sm-3">
+				<div class="col-sm-12">
+					<ul class="nav navbar-nav float-right">
+						<li>@Html.ActionLink("Trả Góp", "Instalment", "HomeUser")</li>
+						<li>@Html.ActionLink("Sữa Chữa", "Repair", "HomeUser")</li>
+						<li>@Html.ActionLink("Khuyến Mãi", "Promotion", "HomeUser")</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container body-content">
+		@RenderBody()
+		<hr />
+		<footer>
+			<div class="col-sm-12">
+				<div class="col-sm-4">
+					<div class="col-sm-12">
+						<div class="col-sm-12 text-success"><h3>Thông Tin Liên Lạc</h3></div>
+						<div class="col-sm-12" style="height:15px;"></div>
+						<div class="col-sm-12"><p>Gọi mua hàng/Sữa Chữa:<span style="color:red">19006480</span></p></div>
+						<div class="col-sm-12"><p>Khiếu Nại , Góp Ý:<b> 0965106971</b></p></div>
+						<div class="col-sm-12"><p>Thời Gian Phục Vụ <b> 8h - 22h</b></p></div>
+						<div class="col-sm-12"><p>Email: cskh@thegioidienthoai.com.vn</p></div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="col-sm-12">
+						<div class="col-sm-12 text-success "><h3>Thông Tin Hỗ Trợ</h3></div>
+						<div class="col-sm-12" style="height:15px;"></div>
+						<div class="col-sm-12">@Html.ActionLink("Giới Thiệu", "Introduce", "HomeUser", new { area = "" })</div>
+						<div class="col-sm-12" style="height:5px;"></div>
+						<div class="col-sm-12">@Html.ActionLink("Tra Cứu Điểm Kmember", "Score", "HomeUser", new { area = "" })</div>
+						<div class="col-sm-12" style="height:5px;"></div>
+						<div class="col-sm-12">@Html.ActionLink("Chính Sách Sử Dụng", "PurchasePolicy", "HomeUser", new { area = "" })</div>
+						<div class="col-sm-12" style="height:5px;"></div>
+						<div class="col-sm-12">@Html.ActionLink("Tuyển Dụng", "Recruitment", "HomeUser", new { area = "" })</div>
+						<div class="col-sm-12" style="height:5px;"></div>
+						<div class="col-sm-12"><img src="~/Content/images/cards.png" /></div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="col-sm-12">
+						<div class="col-sm-12 text-success "><h3>Hệ Thống Mua Hàng</h3></div>
+						<div class="col-sm-12" style="height:15px;"></div>
+						<div class="col-sm-12">
+							<div class="col-sm-5">@Html.Label("Hồ Chí Minh", new { @class = "Label" })</div>
+							<div class="col-sm-7">
+								<select>
+									<option value="Quan11">109 Đường 3/2 , P.8 , Q.11</option>
+									<option value="Quan1">76 Đường Hồ Đắc Kỉ , P.12, Q.1</option>
+									<option value="Quan10">79/14A Đường Tam Đảo , P.8, Q.10</option>
+									<option value="saab">76 Hồ Đắc Kỉ , P.12, Q.1</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-12" style="height:15px;"></div>
+						<div class="col-sm-12">
+							<div class="col-sm-5">@Html.Label("Hà Nội", new { @class = "Label" })</div>
+							<div class="col-sm-7">
+								<select>
+									<option value="a">360 Kim Mã Q. Ba Đình </option>
+									<option value="b">1 Lê Thánh Tông, Q. Hoàn Kiếm </option>
+									<option value="c">12 Trần Nhân Tông, Q. Hoàn Kiếm </option>
+									<option value="d">19 Phạm Đình Hổ, Q. Hai Bà Trưng </option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</footer>
+	</div>
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	@RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,210 @@
+﻿@model  QuanLyCuaHangDienThoai.Areas.Admin.Models.ListProduct
+
+@{ 
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutHeThong.cshtml";
+}
+
+<div class="col-sm-12">
+	<div class="col-sm-9"><h2 class="head">Admin</h2></div>
+	<div class="col-sm-3">@RenderPage("~/Views/Shared/_Logout.cshtml")</div>
+</div>
+<div class="col-sm-12" style="height:50px;"></div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="col-sm-12">
+				<div class="col-sm-12">
+					<div class="col-sm-4">
+						<a class="btn btn-success btn-style" data-toggle="modal" data-target="#ThemMoiSP">Thêm Sản Phẩm Mới</a>
+						<div class="modal fade" id="ThemMoiSP">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<a class="close" data-dismiss="modal">&times;</a>
+										<h4>Thêm Sản Phẩm Mới</h4>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<div class="col-sm-12">
+												<form id="ThemSp">
+													<div class="form-group">
+														<div class="col-sm-4">@Html.Label("Tên Hàng:", new { @class = "label-style" })</div>
+														<div class="col-sm-8">@Html.TextBoxFor(Model=>Model.Name , new { @class = "form-control" })</div>
+													</div>
+													<div class="col-sm-12" style="height:10px;"></div>
+
+													<div class="form-group">
+														<div class="col-sm-4">@Html.Label("Nhà Cung Cấp:", new { @class = "label-style" })</div>
+														<div class="col-sm-8">@Html.DropDownListFor(Model => Model.Producer, ViewBag.listNhaSanXuat as SelectList, null, new { @class = "form-control" })</div>
+													</div>
+
+													<div class="col-sm-12" style="height:10px;"></div>
+
+													<div class="form-group">
+														<div class="col-sm-4">@Html.Label("Loại Sản Phẩm:", new { @class = "label-style" })</div>
+														<div class="col-sm-8">@Html.DropDownListFor(Model => Model.ProductType, ViewBag.listLoaiSanPham as SelectList, null, new { @class = "form-control" })</div>
+													</div>
+													<div class="col-sm-12" style="height:10px;"></div>
+													<div class="form-group">
+														<div class="col-sm-4">@Html.Label("Đơn Giá Nhập:", new { @class = "label-style" })</div>
+														<div class="col-sm-8">@Html.TextBoxFor(Model => Model.OriginalPrice, new { @class = "form-control" })</div>
+													</div>
+													<div class="col-sm-12" style="height:10px;"></div>
+													<div class="form-group">
+														<div class="col-sm-4">@Html.Label("Đơn Giá Bán:", new { @class = "label-style" })</div>
+														<div class="col-sm-8">@Html.TextBoxFor(Model => Model.SellPrice, new { @class = "form-control" })</div>
+													</div>
+
+													<div class="form-group">
+														<div class="col-sm-4">@Html.Label("Upload Images:", new { @class = "label-style" })</div>
+														<div class="col-sm-8"><input type="file" id="ImageBrowse" accept="image/*" /></div>
+													</div>
+
+												</form>
+												<div class="col-sm-12" style="height:15px;"></div>
+												<div class="col-sm-12" style="display:none;" id="img-pre"><img id="ImagePreview" width="200" height="250" style="margin-left:auto;margin-right:auto;display:block;border:1px solid #eeeeee;" /></div>
+												<div style="text-align:center;display:none;" id="loading-gif">
+													<img src="~/Content/images/loading.gif" />
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<a class="btn btn-default" onclick="cancelAction()">Cancel</a>
+											<a class="btn btn-success" onclick="submitThemSP()">Submit</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12" style="height:10px;"></div>
+				<div class="col-sm-12">
+					<div class="col-sm-4">
+						<div>@Html.ActionLink("Quản Lí Nhân Viên", "Index", "QLyNhanVien", new { @area = "Admin" }, new { @class = "btn btn-success btn-style" })</div>
+					</div>
+				</div>
+				<div class="col-sm-12" style="height:10px;"></div>
+				<div class="col-sm-12">
+					<div class="col-sm-4">
+						<div>@Html.ActionLink("Đề Xuất Nhập Kho", "Index", "DeXuatNhapKho", new { @area = "Admin" }, new { @class = "btn btn-success btn-style" })</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-sm-12" style="height:50px;"></div>
+<div style="margin-left:20px;"><img src="~/Content/images/ImageAD.png" class="img-responsive" /></div>
+<div class="col-sm-12" style="height:100px;"></div>
+
+<script>
+	var cancelAction = function () {
+		$("#SanPham_tenSanPham").val("");
+		$("#SanPham_maSanPham").val("");
+		$("#SanPham_size").val("");
+		$("#SanPham_xuatXu").val("");
+		$("#ChiTietSanPham_donGiaNhap").val("");
+		$("#ChiTietSanPham_donGiaXuat").val("");
+		$("#ThemMoiSP").modal("hide");
+	}
+
+	//var submitThemSP = function () {
+	//	var data = $("#ThemSp").serialize();
+	//	if (!$("#ThemSp").valid()) {
+	//		return false;
+	//	}
+	//	$("#loading-gif").show();
+	//	$.ajax({
+	//		type: "Post",
+	//		url: "/Admin/Home/JThemSPMoi",
+	//		data: data,
+	//		success: function (check) {
+	//			if (check == "true") {
+	//				$("#ThemSp").modal("hide");
+	//				$("#SanPham_tenSanPham").val("");
+	//				$("#SanPham_size").val("");
+	//				$("#SanPham_xuatXu").val("");
+	//				$("#ChiTietSanPham_donGiaNhap").val("");
+	//				$("#ChiTietSanPham_donGiaXuat").val("");
+	//				alert("Success");
+
+	//			}
+	//			else
+	//				alert("failed");
+
+	//		}
+	//	})
+	//}
+
+	var submitThemSP = function ()
+	{
+		$("#loading-gif").show();
+		if ($("#img-pre").is(":visible")) {
+			var file = $("#ImageBrowse").get(0).files;
+			var dataimg = new FormData;
+			dataimg.append("ImageGet", file[0]);
+			dataimg.append("Insert.Name", $("#Name").val());
+			dataimg.append("Insert.Producer", $("#Producer").val());
+			dataimg.append("Insert.ProductType", $("#ProductType").val());
+			dataimg.append("Insert.OriginalPrice", $("#OriginalPrice").val());
+			dataimg.append("Insert.SellPrice", $("#SellPrice").val());
+			debugger
+			$.ajax({
+				type: "Post",
+				url: "/Admin/Home/InsertProduct",
+				data: dataimg,
+				contentType: false,
+				processData: false,
+				success: function () {
+					if (!alert("Thêm sản phẩm thành công")) { window.location.reload(); }
+				}
+			})
+		}
+		else {
+			var dataimg = new FormData;
+			dataimg.append("Insert.Name", $("#Insert_Name").val());
+			dataimg.append("Insert.Producer", $("#Insert_Producer").val());
+			dataimg.append("Insert.ProductType", $("#Insert_ProductType").val());
+			dataimg.append("Insert.OriginalPrice", $("#Insert_OriginalPrice").val());
+			dataimg.append("Insert.SellPrice", $("#Insert_SellPrice").val());
+			$.ajax({
+				type: "Post",
+				url: "/Admin/ProductManager/InsertProduct",
+				data: dataimg,
+				contentType: false,
+				processData: false,
+				success: function () {
+					if (!alert("Thêm sản phẩm thành công")) { window.location.reload(); }
+				}
+			})
+		}
+	}
+
+
+	$(document).ready(function () {
+		$("#ImageBrowse").change(function () {
+			var File = this.files;
+			if (File && File[0]) {
+				ReadImage(File[0])
+			}
+
+		})
+	})
+
+	var ReadImage = function (file) {
+		var reader = new FileReader();
+		var image = new Image();
+		reader.readAsDataURL(file);
+		reader.onload = function (_file) {
+			image.src = _file.target.result;
+			image.onload = function () {
+				$("#ImagePreview").attr("src", _file.target.result);
+				$("#img-pre").show();
+			}
+		}
+	}
+
+</script>
